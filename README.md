@@ -1,4 +1,4 @@
-# angular-seed — the seed for AngularJS apps
+# angular-study — this forked from angularjs-seed. for study 
 
 This project is an application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
 You can use it to quickly bootstrap your angular webapp projects and dev environment for these

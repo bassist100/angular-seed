@@ -1,9 +1,9 @@
 {
-  "name": "angular-seed",
+  "name": "angular-study",
   "private": true,
   "version": "0.0.0",
   "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "repository": "https://github.com/bassist100/angular-study",
   "license": "MIT",
   "devDependencies": {
     "karma": "~0.10",
@@ -30,7 +30,5 @@
     "protractor": "protractor e2e-tests/protractor.conf.js",
 
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
-
-    "jshint": "node_modules/.bin/jshint .; true"
   }
 }
