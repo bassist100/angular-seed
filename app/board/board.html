@@ -1,18 +1,24 @@
 <div ng-controller="BoardController" class="container-fluid">
-    <h1>써라!! 등록될 것이다....</h1>
-<form>
-    <textarea ng-model="user.text" class="form-control" rows="3"></textarea>
+    <h1>Write Form</h1>
+<form name="boardForm">
+  <div class="control-group" ng-class="{'has-error': boardForm.content.$invalid}">
+    <label class="control-label">Message:</label>
+    <textarea name="content" ng-model="article.content" rows="3" class="form-control" required></textarea>
+    <span ng-show="boardForm.content.$error.required" class="help-inline">
+       * Required</span>
+  </div>
+    <input ng-model="article.tags" name="tag" ng-pattern="/[^,]+/g">
     <button ng-click="reset()">RESET</button>
-    <button ng-click="save(user)">SAVE</button>
+    <button ng-click="save(article)">SAVE</button>
 
-    <pre>form = {{user | json}}</pre>
-    <pre>master = {{master | json}}</pre>
+    <pre>form = {{article | json}}</pre>
+    <pre>articles = {{articles | json}}</pre>
 </form>
 
-    <h1>등록 됬네????</h1>
+    <h1>Message List</h1>
 <div>{{master.text}}</div>
 <ul ng-repeat="article in articles | orderBy:'-no'">
-    <li>{{article.no}} - {{article.text}} <button ng-click="delete($index)">DELETE</button></li>
+    <li>{{article.no}} - {{article.content}} : TAG COUNT({{article.tags.length}})<button ng-click="delete($index)">DELETE</button></li>
 </ul>
 </div>
 

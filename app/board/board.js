@@ -12,17 +12,19 @@ angular.module('myApp.board', ['ngRoute'])
 .controller('BoardController', ['$scope', function($scope) {
     $scope.articles = [];
 
-    $scope.master = {};
-
-
-    $scope.save = function(user) {
-        user.no = $scope.articles.length +1;
-        $scope.articles.push(user);
-        $scope.user = {};
+    $scope.save = function(article) {
+        article.no = $scope.articles.length +1;
+        if (angular.isUndefined(article.tags)) {
+          article.tags = [];
+        } else {
+          article.tags = article.tags.split(",");
+        }
+        $scope.articles.push(article);
+        $scope.article = {};
     };
 
     $scope.reset = function() {
-        $scope.user = {};
+        $scope.article = {};
     };
 
     $scope.delete = function(index) {
