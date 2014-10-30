@@ -18,7 +18,7 @@
     <h1>Message List</h1>
 <div>{{master.text}}</div>
 <ul ng-repeat="article in articles | orderBy:'-no'">
-    <li>{{article.no}} - {{article.content}} : TAG COUNT({{article.tags.length}})<button ng-click="delete($index)">DELETE</button></li>
+    <li>{{article.no}} - {{article.content}} : TAG COUNT({{article.tags.length}})<button ng-click="delete(article)">DELETE</button></li>
 </ul>
 </div>
 

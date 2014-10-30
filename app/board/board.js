@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.board', ['ngRoute'])
+angular.module('myApp.board', ['ngRoute', 'fireboard'])
 
 .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/board', {
@@ -9,17 +9,18 @@ angular.module('myApp.board', ['ngRoute'])
     });
 }])
 
-.controller('BoardController', ['$scope', function($scope) {
-    $scope.articles = [];
+.controller('BoardController', ['$scope', 'FireBoardFactory', function($scope, FireBoard) {
+    var board = new FireBoard("queue");
+    $scope.articles = board.getList();
 
     $scope.save = function(article) {
-        article.no = $scope.articles.length +1;
+        article.no = $scope.articles.length + 1;
         if (angular.isUndefined(article.tags)) {
           article.tags = [];
         } else {
           article.tags = article.tags.split(",");
         }
-        $scope.articles.push(article);
+        board.add(article);
         $scope.article = {};
     };
 
@@ -27,8 +28,8 @@ angular.module('myApp.board', ['ngRoute'])
         $scope.article = {};
     };
 
-    $scope.delete = function(index) {
-        $scope.articles.splice(index,1);
+    $scope.delete = function(article) {
+        board.remove(article);
     };
 
     $scope.reset();

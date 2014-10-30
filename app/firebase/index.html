@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="sample">
+<head>
+    <script src="angular.1.3.0.min.js"></script>
+    <script src="firebase.1.1.2.js"></script>
+    <script src="angularfire.0.8.2.min.js"></script>
+    <script src="board.js"></script>
+</head>
+<body>
+	<div ng-controller="SampleController">
+		<ul>
+			<li ng-repeat="article in articles">{{article.title}}</li>
+		</ul>
+		<form>
+			<input type="text" ng-model="data.title"/>
+			<button ng-click="add(data);">ADD</button>
+		</form>
+	</div>
+<script>
+(function() {
+	var app = angular.module('sample', ['fireboard']);
+
+	app.controller('SampleController', [
+		'$scope', 'BoardFactory',
+		function($scope, FireBoard) {
+			var board = new FireBoard('sample');
+
+			$scope.articles = board.getList();
+			$scope.data = {
+				title: 'abc',
+			};
+
+			$scope.add = function(data) {
+				console.log('add');
+				board.add(data);
+			}
+		}
+	]);
+})();
+</script>
+</body>
+</html>
