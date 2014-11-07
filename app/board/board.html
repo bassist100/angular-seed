@@ -1,24 +1,72 @@
-<div ng-controller="BoardController" class="container-fluid">
-    <h1>Write Form</h1>
-<form name="boardForm">
-  <div class="control-group" ng-class="{'has-error': boardForm.content.$invalid}">
-    <label class="control-label">Message:</label>
-    <textarea name="content" ng-model="article.content" rows="3" class="form-control" required></textarea>
-    <span ng-show="boardForm.content.$error.required" class="help-inline">
-       * Required</span>
+<div ng-controller="BoardController">
+<h1>Queue Board <small>beta</small></h1>
+<form name="boardForm" class="form-horizontal" role="form">
+  <div class="form-group" ng-class="{'has-error': boardForm.content.$invalid && !boardForm.content.$pristine}">
+    <label for="inputEmail3" class="col-sm-2 control-label">Message</label>
+    <div class="col-sm-10">
+      <textarea name="content" ng-model="article.content" rows="3" class="form-control" required></textarea>
+      <span ng-show="boardForm.content.$error.required" class="help-inline">* Required</span>
+    </div>
   </div>
-    <input ng-model="article.tags" name="tag" ng-pattern="/[^,]+/g">
-    <button ng-click="reset()">RESET</button>
-    <button ng-click="save(article)">SAVE</button>
-
-    <pre>form = {{article | json}}</pre>
-    <pre>articles = {{articles | json}}</pre>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Tags</label>
+    <div class="col-sm-10">
+      <input class="form-control" ng-model="article.tags" name="tag" ng-pattern="/[^,]+/g">
+    </div>
+  </div>
+  <!--
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  -->
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button class="btn btn-default" ng-click="reset()">CLEAR</button>
+      <button class="btn btn-primary" ng-click="save(article)">SAVE</button>
+    </div>
+  </div>
 </form>
-
-    <h1>Message List</h1>
+<!--
+<form name="boardForm" class="form-horizontal" role="form">
+  <div class="form-group col-xs-8" ng-class="{'has-error': boardForm.content.$invalid}">
+    <label>Message:</label>
+    <span ng-show="boardForm.content.$error.required" class="help-inline">* Required</span>
+  </div>
+    <label class="control-label">Tag:</label>
+    <input ng-model="article.tags" name="tag" ng-pattern="/[^,]+/g">
+  <div class="control-group">
+    <label class="control-label">Reply:</label>
+    <textarea name="comment" ng-model="comment" class="form-control"></textarea>
+    <button ng-click="reset_reply(comment)">RESET</button>
+    <button ng-click="save_reply(comment)">REPLY</button>
+  </div>
+  -->
+</form>
+<br>
+<hr>
+<h1>Message List</h1>
 <div>{{master.text}}</div>
-<ul ng-repeat="article in articles | orderBy:'-no'">
-    <li>{{article.no}} - {{article.content}} : TAG COUNT({{article.tags.length}})<button ng-click="delete(article)">DELETE</button></li>
-</ul>
+<table class="table table-striped">
+<tr>
+  <th>No</th>
+  <th>Content</th>
+  <th>Tag</th>
+  <th>Created</th>
+  <th>Controls</th>
+</tr>
+<tr ng-repeat="article in articles | orderBy:'-no'">
+    <td>{{article.no}}</td>
+    <td ng-click="show(article)" ng-bind-html="article.content | nl2br"></td>
+    <td>{{article.tags.join(",")}}</td>
+    <td>{{article.created_at | date:'medium'}}</td>
+    <td><button class="btn btn-primary" ng-click="reply(article)">Reply</button><button class="btn btn-danger" ng-click="delete(article)">DELETE</button></td>
+</tr>
+</table>
 </div>
 
